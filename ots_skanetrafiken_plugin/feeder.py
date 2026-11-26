@@ -233,7 +233,7 @@ class Feeder:
         url = gtfs.RT_URL.format(op=self.cfg("OPERATOR"), key=key)
         quota = Quota(self._cache_dir())
         pause_flag = os.path.join(self._cache_dir(), "paused")
-        trips, trips_checked, center = None, 0.0, None
+        trips, trips_checked, center, center_src = None, 0.0, None, None
         while not stop.is_set():
             if os.path.exists(pause_flag):
                 self._close()
@@ -252,8 +252,10 @@ class Feeder:
             if trips is None or time.time() - trips_checked > 6 * 3600:
                 trips, trips_checked = self._refresh_static(), time.time()
             interval, radius = self.cfg("INTERVAL_S"), self.cfg("RADIUS_KM")
-            if radius > 0 and center is None:
-                center = self._center()
+            # Mittpunkten räknas om när inställningen ändras i dashboarden.
+            center_cfg = (self.cfg("CENTER"), self.cfg("FALLBACK_CENTER"))
+            if radius > 0 and (center is None or center_cfg != center_src):
+                center, center_src = self._center(), center_cfg
             started = time.time()
             try:
                 vehicles = gtfs.decode_vehicle_positions(gtfs.http_get(url))
