@@ -90,7 +90,16 @@ plugin's Config tab or in `~/ots/config.yml`.
 | `GROUP` | `__ANON__` | TAK group that receives the markers |
 | `ONLY_IN_SERVICE` | `true` | Skip vehicles that are not on a trip |
 
-At 30 seconds the cap lasts about 230 hours of connected time a month.
+### Tuning: API calls versus load
+
+- **Fewer API calls:** raise `INTERVAL_S`. One call always returns every vehicle
+  in the region, so the number of calls depends only on the interval and on how
+  long clients are connected. At 30 seconds the cap lasts about 230 hours of
+  connected time a month; at 60 seconds, twice that.
+- **Fewer markers:** set `RADIUS_KM`. This does not save API calls, but it cuts
+  what is sent to the clients (around 700 vehicles for all of Skåne at rush
+  hour), which means less server load, less data over a weak link, and a less
+  cluttered map.
 
 ## Pausing without the web UI
 
