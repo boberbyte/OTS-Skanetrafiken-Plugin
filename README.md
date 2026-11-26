@@ -26,6 +26,8 @@ work by changing one setting, but only `skane` has been tested.
 ## Requirements
 
 - OpenTAKServer with plugins enabled (`OTS_ENABLE_PLUGINS: true`). Developed on 1.8.3.
+- Any TAK client connected to the server. Tested with iTAK (iOS) and ATAK (Android);
+  WinTAK is untested.
 - A free Trafiklab account with two API keys, see
   [Getting API keys from Trafiklab](#getting-api-keys-from-trafiklab).
 - Linux with `ss` (iproute2), used to see whether a TAK client is connected.
