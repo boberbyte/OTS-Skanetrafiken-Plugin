@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "OTS-Skanetrafiken-Plugin"
+version = "1.0.0"
+description = "Skånetrafikens fordon (Trafiklab GTFS Regional Realtime) som kartlager i OpenTAKServer"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "boberbyte" }]
+# Inga egna beroenden: pika, pyyaml och flask finns redan i OpenTAKServers venv,
+# och GTFS-realtidsflödet avkodas av en egen liten avkodare (gtfs.py) så att
+# serverns protobuf-version inte rubbas.
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/boberbyte/OTS-Skanetrafiken-Plugin#readme"
+Repository = "https://github.com/boberbyte/OTS-Skanetrafiken-Plugin"
+
+[project.entry-points."opentakserver.plugin"]
+ots_skanetrafiken_plugin = "ots_skanetrafiken_plugin.app:SkanetrafikenPlugin"
+
+[tool.setuptools]
+packages = ["ots_skanetrafiken_plugin"]
