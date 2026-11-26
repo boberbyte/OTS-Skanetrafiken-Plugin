@@ -39,6 +39,17 @@ def cot_type(route_type):
     return "a-n-G-E-V-C"
 
 
+def category(route_type):
+    """Fordonsslag för filtret i inställningarna: TRAIN, TRAM, FERRY eller BUS (allt övrigt)."""
+    if route_type == 2 or 100 <= route_type < 200:
+        return "TRAIN"
+    if route_type == 0 or 900 <= route_type < 1000:
+        return "TRAM"
+    if route_type == 4 or 1000 <= route_type < 1100:
+        return "FERRY"
+    return "BUS"
+
+
 def make_cot(v, trips, stale_s):
     vid = v["id"]
     name, headsign, rtype, desc = trips.get(v["trip_id"], ("", "", 3, ""))
@@ -265,6 +276,9 @@ class Feeder:
                     if self.cfg("ONLY_IN_SERVICE") and not v["trip_id"]:
                         continue
                     if radius > 0 and dist_km(center[0], center[1], v["lat"], v["lon"]) > radius:
+                        continue
+                    # Fordon utan känd tur räknas som buss.
+                    if not self.cfg("SHOW_" + category(trips.get(v["trip_id"], ("", "", 3, ""))[2])):
                         continue
                     cots.append(make_cot(v, trips, stale_s=interval * 3))
                 if stop.is_set():

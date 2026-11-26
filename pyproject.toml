@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "OTS-Skanetrafiken-Plugin"
-version = "1.0.0"
+version = "1.1.0"
 description = "Skånetrafikens fordon (Trafiklab GTFS Regional Realtime) som kartlager i OpenTAKServer"
 readme = "README.md"
 requires-python = ">=3.10"

@@ -85,6 +85,10 @@ plugin's Config tab or in `~/ots/config.yml`.
 | `MONTHLY_CAP` | `28000` | Maximum realtime calls per calendar month |
 | `STATIC_MAX_AGE_DAYS` | `7` | How often the timetable is downloaded again |
 | `RADIUS_KM` | `0` | Only vehicles within this radius of the centre; 0 = whole region |
+| `SHOW_BUS` | `true` | Show buses (and anything that is not a train, tram or ferry) |
+| `SHOW_TRAIN` | `true` | Show trains |
+| `SHOW_TRAM` | `true` | Show trams |
+| `SHOW_FERRY` | `true` | Show ferries |
 | `CENTER` | `gps` | `gps` (asks gpsd once) or `lat,lon` |
 | `FALLBACK_CENTER` | `55.609,13.001` | Used when there is no GPS fix |
 | `GROUP` | `__ANON__` | TAK group that receives the markers |
@@ -96,7 +100,7 @@ plugin's Config tab or in `~/ots/config.yml`.
   in the region, so the number of calls depends only on the interval and on how
   long clients are connected. At 30 seconds the cap lasts about 230 hours of
   connected time a month; at 60 seconds, twice that.
-- **Fewer markers:** set `RADIUS_KM`. This does not save API calls, but it cuts
+- **Fewer markers:** set `RADIUS_KM`, or turn off vehicle kinds with the `SHOW_*` settings. This does not save API calls, but it cuts
   what is sent to the clients (around 700 vehicles for all of Skåne at rush
   hour), which means less server load, less data over a weak link, and a less
   cluttered map.
