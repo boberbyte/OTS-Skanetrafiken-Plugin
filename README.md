@@ -26,8 +26,8 @@ work by changing one setting, but only `skane` has been tested.
 ## Requirements
 
 - OpenTAKServer with plugins enabled (`OTS_ENABLE_PLUGINS: true`). Developed on 1.8.3.
-- A free Trafiklab account with API keys for *GTFS Regional Realtime* and
-  *GTFS Regional Static data*.
+- A free Trafiklab account with two API keys, see
+  [Getting API keys from Trafiklab](#getting-api-keys-from-trafiklab).
 - Linux with `ss` (iproute2), used to see whether a TAK client is connected.
 
 ## Installation
@@ -40,12 +40,21 @@ sudo systemctl restart opentakserver
 Then reload the web UI as an administrator. The plugin has its own entry in the
 side menu.
 
-## API keys
+## Getting API keys from Trafiklab
 
-The keys are read from a file, by default `~/.trafiklab_key`, so they never show
-up in the web UI or in `config.yml`. Protect it with `chmod 600`. Format: a
-heading line containing `Realtime` or `Static`, followed by a line where the
-key is the last word.
+The plugin cannot fetch anything without your own API keys. They are free.
+
+1. Create an account at [trafiklab.se](https://www.trafiklab.se/) and log in.
+2. Create a project in the developer portal.
+3. In the project, add an API key for each of these two APIs:
+   - **GTFS Regional Realtime** (vehicle positions)
+   - **GTFS Regional Static data** (line numbers and destinations)
+4. Put the keys in a file on the server, by default `~/.trafiklab_key`, and
+   protect it with `chmod 600 ~/.trafiklab_key`.
+
+The keys are read from that file so that they never show up in the web UI or in
+`config.yml`. Format: a heading line containing `Realtime` or `Static`, followed
+by a line where the key is the last word.
 
 ```
 GTFS Regional Realtime
@@ -54,6 +63,9 @@ Key: 0123456789abcdef0123456789abcdef
 GTFS Regional Static data
 Key: fedcba9876543210fedcba9876543210
 ```
+
+New accounts get the Bronze level: 30 000 realtime calls and 50 static downloads
+a month. That is enough for this plugin with the default settings.
 
 Without a static key the plugin still works, but markers show a vehicle id
 instead of line and destination.
