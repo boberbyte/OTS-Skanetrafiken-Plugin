@@ -29,6 +29,9 @@ work by changing one setting, but only `skane` has been tested.
 - A free Trafiklab account with two API keys, see
   [Getting API keys from Trafiklab](#getting-api-keys-from-trafiklab).
 - Linux with `ss` (iproute2), used to see whether a TAK client is connected.
+  Only tested on Linux (Raspberry Pi, Debian based). On Windows or macOS there is
+  no `ss`, so the plugin cannot tell whether anyone is connected and fetches all
+  the time until the monthly cap is reached. Raise `INTERVAL_S` there.
 
 ## Installation
 

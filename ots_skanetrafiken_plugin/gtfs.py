@@ -215,7 +215,7 @@ def load_static(cache_dir, operator):
 if __name__ == "__main__":  # python -m ots_skanetrafiken_plugin.gtfs <cache> <operatör> <nyckelfil>
     try:
         os.nice(10)
-    except OSError:
+    except (OSError, AttributeError):  # os.nice finns inte på Windows
         pass
     n_routes, n_trips = build_static(sys.argv[1], sys.argv[2], sys.argv[3])
     print(f"{n_routes} linjer, {n_trips} turer")
